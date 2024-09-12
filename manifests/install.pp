@@ -50,6 +50,7 @@ class chocolatey::install {
   }
 
   $env_vars = join(['ChocolateyInstall=',$chocolatey::choco_install_location],'"')
+  notify { "env_vars: ${env_vars}": }
   # run install script sourced from https://community.chocolatey.org/install.ps1
   exec { 'install_chocolatey_official':
     #    command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
