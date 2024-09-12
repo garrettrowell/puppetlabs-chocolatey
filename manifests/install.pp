@@ -49,18 +49,18 @@ class chocolatey::install {
     'seven_zip_exe'  => $seven_zip_exe,
   }
 
-  $env_vars = join(['ChocolateyInstall=',$chocolatey::choco_install_location],'"')
+  $env_vars = "ChocolateyInstall=\"${chocolatey::choco_install_location}\""
   notify { "env_vars: ${env_vars}": }
   # run install script sourced from https://community.chocolatey.org/install.ps1
   exec { 'install_chocolatey_official':
-    #    command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
-    command          => epp('chocolatey/install.ps1.epp'),
-    creates          => "${chocolatey::choco_install_location}\\bin\\choco.exe",
-    provider         => powershell,
-    timeout          => $chocolatey::choco_install_timeout_seconds,
-    logoutput        => $chocolatey::log_output,
-    #    environment => ["ChocolateyInstall=${chocolatey::choco_install_location}"],
-    environment      => $env_vars,
-    require          => Registry_value['ChocolateyInstall environment value'],
+    #command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
+    command     => epp('chocolatey/install.ps1.epp'),
+    creates     => "${chocolatey::choco_install_location}\\bin\\choco.exe",
+    provider    => powershell,
+    timeout     => $chocolatey::choco_install_timeout_seconds,
+    logoutput   => $chocolatey::log_output,
+    #environment => ["ChocolateyInstall=${chocolatey::choco_install_location}"],
+    environment => $env_vars,
+    require     => Registry_value['ChocolateyInstall environment value'],
   }
 }
