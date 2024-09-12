@@ -37,7 +37,8 @@ class chocolatey::install {
 
   registry_value { 'ChocolateyInstall environment value':
     ensure => present,
-    path   => 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\ChocolateyInstall',
+    #path   => 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\ChocolateyInstall',
+    path   => 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Environment\ChocolateyInstall',
     type   => 'string',
     data   => $chocolatey::choco_install_location,
   }
@@ -49,19 +50,16 @@ class chocolatey::install {
     'seven_zip_exe'  => $seven_zip_exe,
   }
 
-  # $env_vars = "ChocolateyInstall='${chocolatey::choco_install_location}'"
-  #$env_vars = join(['ChocolateyInstall=','"',$chocolatey::choco_install_location,'"'])
-  #notify { "env_vars: ${env_vars}": }
   # run install script sourced from https://community.chocolatey.org/install.ps1
   exec { 'install_chocolatey_official':
     #command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
-    command      => epp('chocolatey/install.ps1.epp',{'choco_path' => $chocolatey::choco_install_location}),
+    command      => epp('chocolatey/install.ps1.epp'),
+    #command     => epp('chocolatey/install.ps1.epp',{'choco_path' => $chocolatey::choco_install_location}),
     creates      => "${chocolatey::choco_install_location}\\bin\\choco.exe",
     provider     => powershell,
     timeout      => $chocolatey::choco_install_timeout_seconds,
     logoutput    => $chocolatey::log_output,
     #environment => ["ChocolateyInstall=${chocolatey::choco_install_location}"],
-    #    environment  => [$env_vars],
     require      => Registry_value['ChocolateyInstall environment value'],
   }
 }
