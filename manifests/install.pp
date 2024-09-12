@@ -49,7 +49,7 @@ class chocolatey::install {
     'seven_zip_exe'  => $seven_zip_exe,
   }
 
-  $env_vars = "ChocolateyInstall=\"${chocolatey::choco_install_location}\""
+  $env_vars = "ChocolateyInstall=\"\$env:ChocolateyInstall\""
   notify { "env_vars: ${env_vars}": }
   # run install script sourced from https://community.chocolatey.org/install.ps1
   exec { 'install_chocolatey_official':
