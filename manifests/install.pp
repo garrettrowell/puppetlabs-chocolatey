@@ -61,7 +61,7 @@ class chocolatey::install {
     timeout      => $chocolatey::choco_install_timeout_seconds,
     logoutput    => $chocolatey::log_output,
     #environment => ["ChocolateyInstall=${chocolatey::choco_install_location}"],
-    environment  => [$env_vars],
+    #    environment  => [$env_vars],
     require      => Registry_value['ChocolateyInstall environment value'],
   }
 }
