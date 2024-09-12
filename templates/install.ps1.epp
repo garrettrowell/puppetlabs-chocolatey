@@ -1,3 +1,7 @@
+<%- | String $choco_path,
+| -%>
+
+$env:ChocolateyInstall="<%= $choco_path %>"
 <#
     .SYNOPSIS
     Downloads and installs Chocolatey on the local machine.
