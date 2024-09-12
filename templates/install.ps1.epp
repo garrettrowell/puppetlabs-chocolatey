@@ -1,4 +1,4 @@
-<%- | Optional[String] $choco_path,
+<%- | Optional[String] $choco_path = undef,
 | -%>
 <#
     .SYNOPSIS
