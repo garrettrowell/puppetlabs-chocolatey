@@ -1,3 +1,5 @@
+<%- | Optional[Stdlib::Absolutepath] $choco_install_path = $chocolatey::choco_install_path,
+| -%>
 <#
     .SYNOPSIS
     Downloads and installs Chocolatey on the local machine.
@@ -350,6 +352,12 @@ function Install-7zip {
 }
 
 #endregion Functions
+
+#region manual-env-vars
+<% if $choco_install_path { -%>
+$env:ChocolateyInstall = "<%= $choco_install_path %>"
+<% } -%>
+#endregion manual-env-vars
 
 #region Pre-check
 

@@ -1,5 +1,0 @@
-<%- | Optional[String] $chocolatey_install = $chocolatey::choco_install_location,
-| -%>
-<% if $chocolatey_install { -%>
-$env:ChocolateyInstall = "<%= $chocolatey_install %>"
-<% } -%>
