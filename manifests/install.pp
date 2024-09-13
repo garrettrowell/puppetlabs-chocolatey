@@ -53,15 +53,23 @@ class chocolatey::install {
   }
 
   # run install script sourced from https://community.chocolatey.org/install.ps1
+  #  exec { 'install_chocolatey_official':
+  #    #command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
+  #    #command      => epp('chocolatey/install.ps1.epp'),
+  #    command     => epp('chocolatey/install.ps1.epp',{'choco_path' => $chocolatey::choco_install_location}),
+  #    creates      => "${chocolatey::choco_install_location}\\bin\\choco.exe",
+  #    provider     => powershell,
+  #    timeout      => $chocolatey::choco_install_timeout_seconds,
+  #    logoutput    => $chocolatey::log_output,
+  #    #    environment => ["ChocolateyInstall=${chocolatey::choco_install_location}"],
+  #    require      => Registry_value['ChocolateyInstall environment value'],
+  #  }
   exec { 'install_chocolatey_official':
-    #command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
-    #command      => epp('chocolatey/install.ps1.epp'),
-    command     => epp('chocolatey/install.ps1.epp',{'choco_path' => $chocolatey::choco_install_location}),
-    creates      => "${chocolatey::choco_install_location}\\bin\\choco.exe",
-    provider     => powershell,
-    timeout      => $chocolatey::choco_install_timeout_seconds,
-    logoutput    => $chocolatey::log_output,
-    #    environment => ["ChocolateyInstall=${chocolatey::choco_install_location}"],
-    require      => Registry_value['ChocolateyInstall environment value'],
+    command   => inline_epp("${epp('chocolatey/install_options.epp')}${epp('chocolatey/install.ps1.epp')}"),
+    creates   => "${chocolatey::choco_install_location}\\bin\\choco.exe",
+    provider  => powershell,
+    timeout   => $chocolatey::install_timeout_seconds,
+    logoutput => $chocolatey::log_output,
+    require   => Registry_value['ChocolateyInstall environment value'],
   }
 }
