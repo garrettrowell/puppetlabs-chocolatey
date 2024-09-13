@@ -252,7 +252,8 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
     args << '-lo'
     args << '-r' if compiled_choco?
 
-    ["\"#{command(:chocolatey)}\"", *args]
+    ["#{command(:chocolatey)}", *args]
+#    ["\"#{command(:chocolatey)}\"", *args]
   end
 
   def self.instances
