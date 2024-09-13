@@ -292,6 +292,7 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
         end
       end
     rescue Puppet::ExecutionFailure
+      Puppet.info 'choco provider ExecutionFailure'
       return nil
     end
 
