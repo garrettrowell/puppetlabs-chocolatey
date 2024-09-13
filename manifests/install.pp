@@ -52,8 +52,8 @@ class chocolatey::install {
 
   # run install script sourced from https://community.chocolatey.org/install.ps1
   exec { 'install_chocolatey_official':
-    #command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
-    command      => epp('chocolatey/install.ps1.epp'),
+    command     => epp('chocolatey/InstallChocolatey.ps1.epp', $install_parameters),
+    #command      => epp('chocolatey/install.ps1.epp'),
     #command     => epp('chocolatey/install.ps1.epp',{'choco_path' => $chocolatey::choco_install_location}),
     creates      => "${chocolatey::choco_install_location}\\bin\\choco.exe",
     provider     => powershell,
