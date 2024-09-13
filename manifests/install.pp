@@ -37,8 +37,8 @@ class chocolatey::install {
 
   registry_value { 'ChocolateyInstall environment value':
     ensure => present,
-    #path   => 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\ChocolateyInstall',
-    path   => 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Environment\ChocolateyInstall',
+    path   => 'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\ChocolateyInstall',
+    #    path   => 'HKLM\SYSTEM\ControlSet001\Control\Session Manager\Environment\ChocolateyInstall',
     type   => 'string',
     data   => $chocolatey::choco_install_location,
   }
