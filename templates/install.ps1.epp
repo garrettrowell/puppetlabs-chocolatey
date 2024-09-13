@@ -1,4 +1,4 @@
-<%- | Optional[Stdlib::Absolutepath] $choco_install_path = $chocolatey::choco_install_path,
+<%- | Optional[Stdlib::Absolutepath] $choco_install_location = $chocolatey::choco_install_location,
 | -%>
 <#
     .SYNOPSIS
@@ -354,8 +354,8 @@ function Install-7zip {
 #endregion Functions
 
 #region manual-env-vars
-<% if $choco_install_path { -%>
-$env:ChocolateyInstall = "<%= $choco_install_path %>"
+<% if $choco_install_location { -%>
+$env:ChocolateyInstall = "<%= $choco_install_location %>"
 <% } -%>
 #endregion manual-env-vars
 
