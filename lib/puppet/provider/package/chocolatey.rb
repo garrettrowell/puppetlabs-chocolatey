@@ -219,6 +219,7 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
 
     if query
       @resource[:package_settings] ||= {}
+      Puppet.info 'Calling chocolatey with arguments: ' + args.join(' ')
       if @resource[:package_settings]['verbose']
         Puppet.info 'Calling chocolatey with arguments: ' + args.join(' ')
       elsif Gem::Version.new(PuppetX::Chocolatey::ChocolateyCommon.choco_version) >= Gem::Version.new(PuppetX::Chocolatey::ChocolateyCommon::MINIMUM_SUPPORTED_CHOCO_VERSION_NO_PROGRESS)
@@ -227,6 +228,7 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
       output = chocolatey(*args)
       Puppet.info 'Output from chocolatey: ' + output if @resource[:package_settings]['log_output']
     else
+      Puppet.info 'chocolatey provider update->install'
       install
     end
   end
@@ -265,11 +267,13 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
       pin_output = nil unless choco_exe
       # don't add -r yet, as there is an issue in 0.9.9.9/0.9.9.10 that returns full list plus pins
       pin_output = Puppet::Util::Execution.execute([command(:chocolatey), 'pin', 'list'], { sensitive: true }) if choco_exe
+      Puppet.info "choco provider.instances pin_output => #{pin_output.inspect}"
       pin_output&.split("\n")&.each { |pin| pins << pin.split('|')[0] }
 
       execpipe(listcmd) do |process|
         process.each_line do |line|
           line.chomp!
+          Puppet.info "choco provider.instances line => #{line.inspect}"
           next if line.empty? || line.match(%r{Reading environment variables.*})
           raise Puppet::Error, 'At least one source must be enabled.' if line.match?(%r{Unable to search for packages.*})
 
