@@ -311,7 +311,7 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
 
     args << '| findstr /R "latest" | findstr /V "latestCompare"' unless choco_exe
     @resource[:package_settings] ||= {}
-    Puppet.info 'Calling chocolatey with arguments: ' + args.join(' ') if @resource[:package_settings]['verbose']
+    Puppet.info 'Calling chocolatey with arguments: ' + args.join(' ')# if @resource[:package_settings]['verbose']
     [command(:chocolatey), *args]
   end
 
