@@ -47,6 +47,7 @@ module PuppetX::Chocolatey::ChocolateyCommon
       chocopath = 'choco.exe'
     end
 
+    Puppet.info "chocolatey_common.chocolatey_command chocopath => #{chocopath}"
     chocopath
   end
   module_function :chocolatey_command
