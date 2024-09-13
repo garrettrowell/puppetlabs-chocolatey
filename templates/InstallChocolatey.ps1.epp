@@ -21,6 +21,7 @@ $ErrorActionPreference = 'Stop'
 #try {
 
 # variables
+$env:ChocolateyInstall = "<%= $choco_path %>"
 $url = '<%= $download_url %>'
 $unzipMethod = '<%= $unzip_type %>'
 $install_proxy = <%= $_install_proxy %>

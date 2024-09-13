@@ -48,6 +48,8 @@ class chocolatey::install {
     'unzip_type'     => $unzip_type,
     '_install_proxy' => $_install_proxy,
     'seven_zip_exe'  => $seven_zip_exe,
+    # testing
+    'choco_path'     => $chocolatey::choco_install_location,
   }
 
   # run install script sourced from https://community.chocolatey.org/install.ps1
