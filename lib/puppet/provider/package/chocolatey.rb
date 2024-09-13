@@ -41,7 +41,7 @@ Puppet::Type.type(:package).provide(:chocolatey, parent: Puppet::Provider::Packa
   require Pathname.new(__FILE__).dirname + '../../../' + 'puppet_x/chocolatey/chocolatey_common'
   include PuppetX::Chocolatey::ChocolateyCommon
 
-  commands chocolatey: "#{PuppetX::Chocolatey::ChocolateyCommon.chocolatey_command}"
+  commands chocolatey: PuppetX::Chocolatey::ChocolateyCommon.chocolatey_command
 
   def initialize(value = {})
     super(value)
