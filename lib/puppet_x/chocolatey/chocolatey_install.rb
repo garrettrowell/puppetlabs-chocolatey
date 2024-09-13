@@ -31,6 +31,7 @@ module PuppetX
         # non-Windows installations, we don't want to confine this
         # to just Windows.
         value = ENV.fetch('ChocolateyInstall', nil) if value.nil?
+        Puppet.info "PuppetX::Chocolatey::ChocolateyInstall.install_path value => #{value.inspect}"
 
         value
       end
