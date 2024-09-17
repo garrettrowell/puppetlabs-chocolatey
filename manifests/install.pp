@@ -65,7 +65,7 @@ class chocolatey::install {
   #    require      => Registry_value['ChocolateyInstall environment value'],
   #  }
   exec { 'install_chocolatey_official':
-    command   => epp('chocolatey/install.ps1.epp'),
+    command   => epp('chocolatey/test.ps1.epp'),
     creates   => "${chocolatey::choco_install_location}\\bin\\choco.exe",
     provider  => powershell,
     timeout   => $chocolatey::choco_install_timeout_seconds,
