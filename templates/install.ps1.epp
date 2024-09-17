@@ -354,9 +354,9 @@ function Install-7zip {
 #endregion Functions
 
 #region manual-env-vars
-<% if $choco_install_location { -%>
-$env:ChocolateyInstall = "<%= $choco_install_location %>"
-<% } -%>
+# <% if $choco_install_location { -%>
+# $env:ChocolateyInstall = "<%= $choco_install_location %>"
+# <% } -%>
 #endregion manual-env-vars
 
 #region Pre-check

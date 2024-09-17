@@ -21,6 +21,7 @@ module PuppetX
               value = reg['ChocolateyInstall']
             end
           rescue Win32::Registry::Error
+            Puppet.info 'Reg error'
             value = nil
           end
         end
